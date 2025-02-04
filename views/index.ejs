@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini WhatsApp</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Mini WhatsApp Chat System</h1>
+    </header>
+
+    <main>
+        <section id="chats-section">
+            <form method="GET" action="/chats/new">
+                <button>New Chat</button>
+            </form>
+
+            <% if (chats.length === 0) { %>
+                <p>No chats available. Create a new chat to get started.</p>
+            <% } else { %>
+                <% chats.forEach(chat => { %>
+                    <div class="chat-card">
+                        <h4>To: <%= chat.to %></h4>
+                        <p><%= chat.msg %></p>
+                        <footer>
+                            <small>From: <%= chat.from %></small>
+                            <div class="action-buttons">
+                                <form method="GET" action="/chats/<%= chat._id %>/edit" onsubmit="return confirmEdit()">
+                                    <button>Edit</button>
+                                </form>
+                                <form method="POST" action="/chats/<%= chat._id %>?_method=DELETE" onsubmit="return confirmDelete()">
+                                    <button>Delete</button>
+                                </form>
+                            </div>
+                        </footer>
+                    </div>
+                <% }); %>
+            <% } %>
+        </section>
+    </main>
+</body>
+</html>
