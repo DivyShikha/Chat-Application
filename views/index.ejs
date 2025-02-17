@@ -19,7 +19,7 @@
             </form>
 
             <% if (chats.length === 0) { %>
-                <p>No chats available. Create a new chat to get started.</p>
+                <p> No chats available. Create a new chat to get started.</p>
             <% } else { %>
                 <% chats.forEach(chat => { %>
                     <div class="chat-card">
@@ -34,7 +34,14 @@
                                 <form method="POST" action="/chats/<%= chat._id %>?_method=DELETE" onsubmit="return confirmDelete()">
                                     <button>Delete</button>
                                 </form>
+                                <!-- <form method="GET" action="/chats/<%= chat._id %>">
+                                    <button>Show</button>
+                                </form> -->
                             </div>
+                            <p>Received by <i><%= chat.to %></i></p>
+                            <hr />
+                            <%= chat.created_at.toString().split(" ")[4] %> <br />
+                            <%= chat.created_at.toString().split(" ").slice(0, 4).join(" ") %> <br />
                         </footer>
                     </div>
                 <% }); %>
