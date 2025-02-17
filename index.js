@@ -29,15 +29,11 @@ app.get("/", (req, res) =>{
 });
 
 //Index Route
-app.get("/chats", async (req, res, next) =>{
-    try{let chats = await Chat.find();// await as find() is an async function
+app.get("/chats", asyncWrap(async (req, res, next) =>{
+    let chats = await Chat.find();// await as find() is an async function
         //console.log(chats);
-        res.render("index.ejs", { chats });
-    }catch(err){
-        next(err);
-    }
-    
-});
+        res.render("index.ejs", { chats });    
+}));
 
 //New Route
 app.get("/chats/new", async (req, res, next) =>{
